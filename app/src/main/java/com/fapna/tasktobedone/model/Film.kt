@@ -1,9 +1,9 @@
 package com.fapna.tasktobedone.model
 
 data class Film (
-    val title : String,
-    val year : Int,
+    val Title : String,
+    val Year : Int,
     val imdbID : String,
-    val type : String,
-    val poster : String
+    val Type : String,
+    val Poster : String
 )

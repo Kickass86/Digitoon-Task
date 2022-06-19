@@ -1,11 +1,26 @@
 package com.fapna.tasktobedone
 
+import androidx.lifecycle.ViewModel
+import com.fapna.tasktobedone.model.SearchResponse
 import com.fapna.tasktobedone.network.ApiClient
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
-class MainViewModel(private val apiClient: ApiClient) {
+class MainViewModel(): ViewModel() {
 
-    suspend fun fetchFilms() =
-        apiClient.apiService.getSearchResult(API_KEY, SEARCH_TERM)
+    private val repository: Repository by lazy {
+        Repository()
+    }
+
+    suspend fun fetchFilms(): Flow<SearchResponse?> = flow {
+        try {
+            val response = repository.getSearchResult(API_KEY, SEARCH_TERM)
+            emit(response)
+        } catch (e: Exception) {
+            emit(null)
+        }
+    }
+
 
 
     companion object {
